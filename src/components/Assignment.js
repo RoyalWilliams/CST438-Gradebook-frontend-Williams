@@ -58,7 +58,7 @@ class Assignment extends React.Component {
         renderCell: (params) => (
           <div>
           <Radio
-            checked={params.row.id == this.state.selected}
+            checked={params.row.id === this.state.selected}
             onChange={this.onRadioClick}
             value={params.row.id}
             color="default"
@@ -82,7 +82,11 @@ class Assignment extends React.Component {
             <Button component={Link} to={{pathname:'/gradebook',   assignment: assignmentSelected }} 
                     variant="outlined" color="primary" disabled={this.state.assignments.length===0}  style={{margin: 10}}>
               Grade
-            </Button>
+              </Button>
+              <Button component={Link} to={{ pathname: '/addNewAssignment', assignment: this.state.rows[this.state.selected] }}
+                  variant="outlined" color="primary" disabled={this.state.rows.length === 0} style={{ margin: 10 }}>
+               Add New Assignment
+              </Button>
             <ToastContainer autoClose={1500} /> 
           </div>
       )
