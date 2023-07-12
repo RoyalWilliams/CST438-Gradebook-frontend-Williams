@@ -97,4 +97,4 @@ class AddNewAssignment extends Component {
     }
 }
 
-export default AddAssignment;
+export default AddNewAssignment;
