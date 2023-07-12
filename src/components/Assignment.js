@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
 import {DataGrid} from '@mui/x-data-grid';
 import {SERVER_URL} from '../constants.js'
+import addNewAssignment from './AddNewAssignment.js';
 
 // NOTE:  for OAuth security, http request must have
 //   credentials: 'include' 
@@ -15,7 +16,7 @@ import {SERVER_URL} from '../constants.js'
 class Assignment extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {selected: 0, assignments: []};
+      this.state = {selected: 0, assignments: [], assignmentName: '', courseName: '', dueDate: ''};
     };
  
    componentDidMount() {
@@ -57,13 +58,13 @@ class Assignment extends React.Component {
         width: 400,
         renderCell: (params) => (
           <div>
-          <Radio
-            checked={params.row.id == this.state.selected}
-            onChange={this.onRadioClick}
-            value={params.row.id}
-            color="default"
-            size="small"
-          />
+              <Radio
+                checked={params.row.id === this.state.selected}
+                onChange={this.onRadioClick}
+                value={params.row.id}
+                color="default"
+                size="small"
+              />
           {params.value}
           </div>
         )
@@ -82,7 +83,11 @@ class Assignment extends React.Component {
             <Button component={Link} to={{pathname:'/gradebook',   assignment: assignmentSelected }} 
                     variant="outlined" color="primary" disabled={this.state.assignments.length===0}  style={{margin: 10}}>
               Grade
-            </Button>
+              </Button>
+              <Button component={Link} to={{ pathname: '/addNewAssignment', assignment: this.state.rows[this.state.selected] }}
+                  variant="outlined" color="primary" disabled={this.state.rows.length === 0} style={{ margin: 10 }}>
+               Add New Assignment
+              </Button>
             <ToastContainer autoClose={1500} /> 
           </div>
       )
