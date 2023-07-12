@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
 import {DataGrid} from '@mui/x-data-grid';
 import {SERVER_URL} from '../constants.js'
+import addNewAssignment from './AddNewAssignment.js';
 
 // NOTE:  for OAuth security, http request must have
 //   credentials: 'include' 
@@ -57,13 +58,13 @@ class Assignment extends React.Component {
         width: 400,
         renderCell: (params) => (
           <div>
-          <Radio
-            checked={params.row.id === this.state.selected}
-            onChange={this.onRadioClick}
-            value={params.row.id}
-            color="default"
-            size="small"
-          />
+              <Radio
+                checked={params.row.id === this.state.selected}
+                onChange={this.onRadioClick}
+                value={params.row.id}
+                color="default"
+                size="small"
+              />
           {params.value}
           </div>
         )
