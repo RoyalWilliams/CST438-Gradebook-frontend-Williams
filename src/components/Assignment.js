@@ -16,7 +16,7 @@ import addNewAssignment from './AddNewAssignment.js';
 class Assignment extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {selected: 0, assignments: []};
+      this.state = {selected: 0, assignments: [], assignmentName: '', courseName: '', dueDate: ''};
     };
  
    componentDidMount() {
