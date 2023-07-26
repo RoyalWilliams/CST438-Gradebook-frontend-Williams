@@ -16,7 +16,7 @@ class AddNewAssignment extends Component {
         super(props);
         this.state = {
             assignmentName: '',
-            courseName: '',
+            courseId: 0,
             dueDate: ''
         };
     }
@@ -29,8 +29,8 @@ class AddNewAssignment extends Component {
         this.setState({ dueDate: event.target.value });
     }
 
-    courseNameChangeHandler = (event) => {
-        this.setState({ courseName: event.target.value });
+    courseIdChangeHandler = (event) => {
+        this.setState({ courseId: event.target.value });
     }
 
     mySubmitHandler = (event) => {
@@ -39,11 +39,11 @@ class AddNewAssignment extends Component {
 
         let assignmentName = this.state.assignmentName;
         let dueDate = this.state.dueDate;
-        let courseName = this.state.courseName
+        let courseId = this.state.courseId
         let data = {
             name: assignmentName,
             dueDate: dueDate,
-            courseName: courseName
+            courseId: courseId
         }
 
         fetch(`${SERVER_URL}/gradebook/addNewAssignment`,
@@ -56,45 +56,43 @@ class AddNewAssignment extends Component {
                 },
                 body: JSON.stringify(data),
             })
-                .then(res => {
-                    if (res.ok) {
-                        toast.success("Assignment Successfully Added!", {
-                            position: toast.POSITION.BOTTOM_LEFT
-                        });
-                    } else {
-                        toast.error("Error, Something is wrong!", {
-                            position: toast.POSITION.BOTTOM_LEFT
-                        });
-                        console.error('Error Status = ' + res.status);
-                    }
-            })
-                .catch(err => {
-                    toast.error("Error!", {
+            .then(res => {
+                if (res.ok) {
+                    toast.success("Assignment Successfully Added!", {
                         position: toast.POSITION.BOTTOM_LEFT
                     });
-                    console.error(err);
+                } else {
+                    toast.error("Error, Something is wrong!", {
+                        position: toast.POSITION.BOTTOM_LEFT
+                    });
+                    console.error('Error Status = ' + res.status);
+                }
+            })
+            .catch(err => {
+                toast.error("Error!", {
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
+                console.error(err);
             })
     }
 
     render() {
         return (
-            <div>
-                <div className="App">
-                    <form onSubmit={this.mySubmitHandler}>
-                        <p> Assignment Name </p>
-                        <input name='assignmentName' onChange={this.assignmentChangeHandler} />
-                        <p> Course ID </p>
-                        <input variant="outlined" type="number" name='courseName' onChange={this.courseNameChangeHandler} />
-                        <p> Due Date </p>
-                        <input type="date" name='dueDate' onChange={this.dueDateChangeHandler} />
-                        <br> </br>
-                        <br> </br>
-                        <input type="submit" />
-                    </form>
+            <div className="App" align='left'>
+                <div>
+                    <TextField autoFocus fullWidth label="Assignment Name" name="assignmentName" onChange={this.assignmentChangeHandler} />
+                    <TextField autoFocus fullWidth label="Due Date" name="dueDate" onChange={this.dueDateChangeHandler} />
+                    <TextField autoFocus fullWidth label="Course Id" name="courseId" onChange={this.courseIdChangeHandler} />
+                    <Button color="primary" onClick={this.mySubmitHandler}>Submit</Button>
                 </div>
+                <ToastContainer autoClose={2000} />
             </div>
-            )
-    }
+        );
+    };
+}
+
+    AddNewAssignment.propTypes = {
+    AddNewAssignment: PropTypes.func.isRequired
 }
 
 export default AddNewAssignment;
